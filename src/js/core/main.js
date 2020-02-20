@@ -1,6 +1,8 @@
+import {ModalWindow} from "../modules/libs";
+
 window.onload = function () {
-    let Movies = document.querySelector('#movies')
-    mainContent = '';
+    let Movies = document.querySelector('#movies'),
+        mainContent = '';
     const requestUrl = new Request('http://my-json-server.typicode.com/moviedb-tech/movies/list');
 
     function sendRequest(url) {
@@ -10,11 +12,9 @@ window.onload = function () {
 
     sendRequest(requestUrl)
         .then(films => {
-            console.log(films)
             films.forEach((film) => {
-                console.log(film)
                 mainContent += `
-                <div class="movie col-lg-4">
+                <div class="movie col-lg-3">
                    <img src="${film.img}">
                          <h2 class="name movie__name">
                              ${film.name}
@@ -24,8 +24,19 @@ window.onload = function () {
                         </div>
                 </div>`
             })
-            Movies.innerHTML = mainContent
+            let templateHtml = Movies.innerHTML = mainContent,
+                btn = document.querySelectorAll('.movie');
+            for (let i = 0; i < btn.length; i++) {
+                btn[i].addEventListener('click', function () {
+                    popup.open();
+                })
+            }
+
         })
+
+
+    let popup = new ModalWindow()
+
 
 }
 
