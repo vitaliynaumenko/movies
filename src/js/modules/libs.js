@@ -1,22 +1,28 @@
 export class ModalWindow {
 
-    constructor(id, modal, overlay, btn) {
-        let pop = this;
-        this.modal = document.querySelectorAll('.popup');
-        this.overlay = overlay;
-
+    constructor(popup, modal_overlay) {
+        this.modal = document.querySelectorAll(popup);
+        this.overlay = document.querySelectorAll(modal_overlay);
     }
 
-    open() {
-        this.modal.forEach((el) =>{
-            el.classList.add('open')
-        })
+    open(content) {
+        this.modal.forEach((el) => {
+            el.classList.add('active')
+            el.innerHTML = content;
+        });
+        this.overlay.forEach((el) => {
+            el.classList.add('active')
+        });
     }
 
     close() {
-        this.modal.forEach((el) =>{
-            el.classList.remove('open')
+        this.modal.forEach((el) => {
+            el.classList.remove('active')
         })
+        this.overlay.forEach((el) => {
+            el.classList.remove('active')
+        })
+
     }
 
 }
