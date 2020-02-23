@@ -1,22 +1,15 @@
 import {ModalWindow} from "../components/modal";
+import {REQUESTURL} from "../index";
 
 window.onload = function () {
+    let popup = new ModalWindow('.modal_div', '.modal_overlay');
+    let sendRequest = (url) => fetch(url).then(response => response.json())
 
-
-const REQUESTURL = 'http://my-json-server.typicode.com/moviedb-tech/movies/list';
-
-let popup = new ModalWindow('.modal_div', '.modal_overlay');
-
-let sendRequest = (url) => fetch(url).then(response => response.json())
-
-   sendRequest(REQUESTURL)
-         .then(films => {
-             films.forEach((film) => {
-
-                 self = document.querySelectorAll('.movie');
-
+    sendRequest(REQUESTURL)
+        .then(films => {
+            films.forEach((film) => {
+                let self = document.querySelectorAll('.movie');
                 for (let i = 0; i < self.length; i++) {
-
                     self[i].addEventListener('click', function () {
                         // Popup
                         let templateModal = '';
@@ -33,23 +26,15 @@ let sendRequest = (url) => fetch(url).then(response => response.json())
                                  `
                         popup.open(templateModal);
                     });
-
-
                 }
-
             })
-             let close = document.querySelectorAll('.modal_overlay, .modal_close');
-
+            let close = document.querySelectorAll('.modal_overlay, .modal_close');
             close.forEach((el) => {
                 el.addEventListener('click', function () {
                     popup.close();
                 })
             })
-
-
         })
-//
-//
- }
+}
 
 
