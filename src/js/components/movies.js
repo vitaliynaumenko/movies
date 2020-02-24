@@ -1,9 +1,13 @@
-import {LocalstorageUtil} from "./localstorage";
-
-const localStorageUtil = new LocalstorageUtil();
-
+import {localStorageUtil} from './localstorage'
+import {favoriteListPage} from "./favoritelist";
 
 export class Movies {
+
+    handleSetLocationStorage(element, id) {
+        localStorageUtil.putMovies(id)
+        favoriteListPage.render()
+    }
+
     render() {
         let moviesStore = localStorageUtil.getFavMovies()
         let htmlMovies = '';
@@ -18,15 +22,12 @@ export class Movies {
                     } else {
                         let activeClass = ' active'
                     }
-
-
                     htmlMovies += `
-                                <div class="fav__list${activeClass}" 
-                                  onclick="">
+                            
+                            <div class="movie col-lg-3" data-id="${id}"  ">
+                            <div class="fav__list${activeClass}">
                                     add to fav list 
                                 </div>
-                            <div class="movie col-lg-3" data-id="${id}"  ">
-                            
                                     <img src="${img}">
                                      <h2 class="name movie__name">
                                          ${name}
@@ -38,17 +39,21 @@ export class Movies {
                 })
                 document.getElementById('movies').innerHTML = htmlMovies;
 
+                let btnAddToFavList = document.querySelectorAll('.fav__list');
+
+                for (let i = 0; i < btnAddToFavList.length; i++) {
+                    btnAddToFavList[i].addEventListener('click', function ({id}) {
+                        moviesPage.handleSetLocationStorage(this, films[i].id)
+                    })
+                }
+
             })
-
-    }
-
-    handleSetLocationStorage(e) {
-        console.log('ok')
     }
 }
 
 const moviesPage = new Movies()
 moviesPage.render();
+
 
 
 

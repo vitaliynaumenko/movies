@@ -1,7 +1,7 @@
 export class LocalstorageUtil {
 
     constructor() {
-        this.keyName = 'favorite'
+        this.keyName = 'favorite';
     }
 
     getFavMovies() {
@@ -21,12 +21,20 @@ export class LocalstorageUtil {
             movies.push(id);
             isPushed = true;
         } else {
-            movies.splice(index, 1);
+            return false
         }
 
         localStorage.setItem(this.keyName, JSON.stringify(movies))
     }
 
+    removeMovies(id) {
+        let movies = this.getFavMovies();
+        let index = movies.indexOf(id);
+        movies.splice(index, 1)
+        localStorage.setItem(this.keyName, JSON.stringify(movies))
+    }
+
 }
 
-const localStorageUtil = new LocalstorageUtil();
+export const localStorageUtil = new LocalstorageUtil();
+
