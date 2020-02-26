@@ -5,6 +5,8 @@ class Filter {
     }
 
     render() {
+
+        let str = []
         let selectOption = '';
 
         fetch('http://my-json-server.typicode.com/moviedb-tech/movies/list')
@@ -12,10 +14,10 @@ class Filter {
             .then(films => {
 
                 films.forEach(({genres}) => {
-                    console.log(genres)
 
+                  console.log()
                     selectOption += `
-                                <option> ${genres} </option>
+                                 <option>  </option>
                     `
 
                     document.getElementById('filter').innerHTML = selectOption;

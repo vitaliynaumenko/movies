@@ -13,6 +13,7 @@ export class LocalstorageUtil {
     }
 
     putMovies(id) {
+        console.log(id)
         let movies = this.getFavMovies();
         let isPushed = false;
         let index = movies.indexOf(id);
@@ -28,8 +29,10 @@ export class LocalstorageUtil {
     }
 
     removeMovies(id) {
+        console.log(id)
         let movies = this.getFavMovies();
         let index = movies.indexOf(id);
+        let isPushed = false;
         movies.splice(index, 1)
         localStorage.setItem(this.keyName, JSON.stringify(movies))
     }
